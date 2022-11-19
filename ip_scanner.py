@@ -26,7 +26,7 @@ def user_defiend_subnet():
 		ip_addresses.append(f"{subnet}.{i}")
 	main()
 
-# Takes entries from the IP list as pings it, returns response if the IP is up or not
+# Takes entries from the IP list and pings it, returns response if the IP is up or not
 def ping(ip):
 	response = os.system(f"ping -t2 -c1 {ip} >/dev/null")
 	if response == 0:
