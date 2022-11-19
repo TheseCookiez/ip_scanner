@@ -6,7 +6,7 @@ import socket
 argv = sys.argv
 ip_addresses = []
 
-# Get the local machine's IPV4 address to get the local subnet
+# Get the local machines IPV4 address to get the local subnet
 def scan_current_subnet():
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	s.connect(("8.8.8.8", 80))
