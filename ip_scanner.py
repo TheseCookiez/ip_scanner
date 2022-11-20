@@ -6,7 +6,7 @@ import socket
 argv = sys.argv
 ip_addresses = []
 
-# Get the local machines IPV4 address to get the local subnet
+# Get the local machine's IPV4 address to get the local subnet
 def scan_current_subnet():
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	s.connect(("8.8.8.8", 80))
@@ -26,7 +26,7 @@ def user_defiend_subnet():
 		ip_addresses.append(f"{subnet}.{i}")
 	main()
 
-# Takes entries from the IP list and pings it, returns response if the IP is up or not
+# Takes entries from the IP list as pings it, returns response if the IP is up or not
 def ping(ip):
 	response = os.system(f"ping -t2 -c1 {ip} >/dev/null")
 	if response == 0:
@@ -41,9 +41,9 @@ def main():
 		executor.map(ping, ip_addresses)
 
 # Parses the arguments given
-if len(argv) < 2:
+if len(argv) < 2 or argv[1] == "-h":
 	print("""
-		No argument was given, printing help (-h)
+		IP_Scanner help message (-h)
 
 		-h		Display this help message
 		-a		Scan all IPs in current subnet
@@ -51,18 +51,10 @@ if len(argv) < 2:
 
 		""")
 	exit()
-elif argv[1] == "-h":
-	print("""
-		Printing help (-h)
-
-		-h		Display this help message
-		-a		Scan all IPs in current subnet
-		-s		Scan spcific subnet (i.e 192.168.1.0)
-
-		""")
-	exit()
-elif argv[1] == "-a":
+if argv[1] == "-a":
 	print("[+] Getting current subnet...")
 	scan_current_subnet()
 elif argv[1] == "-s":
 	user_defiend_subnet()
+else:
+	print("Invalid argument given! Run with -h to see help message")
